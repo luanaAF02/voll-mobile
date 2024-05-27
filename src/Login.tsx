@@ -6,38 +6,44 @@ import { EntradaTexto } from "./componentes/EntradaTexto";
 import { Titulo } from "./componentes/Titulo";
 import { useEffect, useState } from "react";
 import { fazerLogin } from "./servicos/AutenticacaoServico";
-import { background} from "native-base/lib/typescript/theme/styled-system";
-import AsyncStorage  from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { jwtDecode } from "jwt-decode";
 
 export default function Login({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const toast = useToast();
-  const [carregando, setCarregado] = useState(true)
+  const [carregando, setCarregado] = useState(true);
 
   useEffect(() => {
-    AsyncStorage.removeItem('token')
+    AsyncStorage.removeItem("token");
     async function verificarLogin() {
-      const token = await AsyncStorage.getItem('token')
-      if(token){
-        navigation.replace('Tabs')
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        navigation.replace("Tabs");
       }
-      setCarregado(false)
+      setCarregado(false);
     }
-    verificarLogin()
-  }, [])
+    verificarLogin();
+  }, []);
 
   async function login() {
     const resultado = await fazerLogin(email, senha);
     if (resultado) {
-      const {token} = resultado
-      AsyncStorage.setItem('token', token)
-      const tokenDecodificado = jwtDecode(token)as any
-      const pacienteId = tokenDecodificado.id
-      AsyncStorage.setItem('pacienteId', pacienteId)
-      navigation.replace('Tabs');
-    } else {
+      const { token } = resultado;
+      AsyncStorage.setItem("token", token);
+      const tokenDecodificado = jwtDecode(token) as any;
+      const pacienteId = tokenDecodificado.id;
+      AsyncStorage.setItem("pacienteId", pacienteId);
+      navigation.replace("Tabs");
+      toast.show({
+        title: "Bem-vindo ao Voll!",
+        description: "Login realizado com sucesso.",
+        backgroundColor: "green.500",
+      })
+      navigation.replace('Login');
+    } 
+    else {
       toast.show({
         title: "Erro no login",
         description: "Email ou senha não conferem",
@@ -45,8 +51,8 @@ export default function Login({ navigation }: any) {
       });
     }
   }
-  if(carregando){
-    return null
+  if (carregando) {
+    return null;
   }
 
   return (

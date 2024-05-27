@@ -1,15 +1,18 @@
-import { Image, Text, Box, Checkbox, ScrollView } from 'native-base'
+import { Image, Text, Box, Checkbox, ScrollView, Toast } from 'native-base'
 import { useState } from 'react';
 import Logo from './assets/Logo.png'
 import { Botao } from './componentes/Botao';
 import { EntradaTexto } from './componentes/EntradaTexto';
 import { Titulo } from './componentes/Titulo';
 import { secoes } from './utils/CadastroEntradaTexto';
+import { cadastarPaciente } from './servicos/PacienteServico';
 
 export default function Cadastro({ navigation } : any) {
   const [numSecao, setNumSecao] = useState(0);
   const [dados, setDados] = useState({} as any);
   const [planos, setPlanos] = useState([] as number[])
+
+  
  
   function avancarSecao(){
     if(numSecao < secoes.length - 1){
@@ -17,6 +20,7 @@ export default function Cadastro({ navigation } : any) {
     }else{
       console.log(dados)
       console.log(planos)
+      cadastrar()
     }
   }
 
@@ -28,6 +32,46 @@ export default function Cadastro({ navigation } : any) {
 
   function atualizarDados(id: string, valor: string){
     setDados({...dados, [id]: valor})
+  }
+
+  async function cadastrar() {
+    const resultado = await cadastarPaciente({
+      cpf: dados.cpf,
+      nome: dados.nome,
+      email: dados.email,
+      endereco: {
+        cep: dados.cep,
+        rua: dados.rua,
+        numero: dados.numero,
+        estado: dados.estado,
+        complemento: dados.complemento
+
+      },
+      senha: dados.senha,
+      telefone: dados.telefone,
+      possuiPlanoSaude: planos.length > 0,
+      planoSaude: planos,
+      imagem: dados.imagem
+      
+    })
+
+    if(resultado){
+       Toast.show({
+        title: 'Cadastro realizado com sucesso',
+        description: 'Você ja possui cadastro',
+        backgroundColor: 'green.500'
+
+       })
+       navigation.replace('Login');
+    }
+    else{
+      Toast.show({
+        title: 'Erro ao cadastrar',
+        description: 'Verifique os dados e tente novamente',
+        backgroundColor: 'red.500'
+
+       })
+    }
   }
 
   return (
