@@ -14,4 +14,5 @@ export async function cadastrarPaciente(paciente: Paciente){
     console.log(error)
     return null
   }
+
 }

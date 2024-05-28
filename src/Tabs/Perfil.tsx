@@ -1,24 +1,25 @@
-import { VStack, Text, ScrollView, Avatar, Divider } from "native-base";
-import { Titulo } from "../componentes/Titulo";
+import { VStack, Text, ScrollView, Avatar, Divider } from 'native-base'
+import { Titulo } from '../componentes/Titulo'
 
-export default function Perfil() {
-    return (
-        <ScrollView flex={1}>
-            <VStack flex={1} alignItems="center" p={5}>
-                <Titulo color="blue.500">Meu Perfil</Titulo>
-                <Avatar source={{ uri: "https://github.com/arthurlmr2004.png" }} mt={5} size="xl" />
+export default function Perfil(){
+  return(
+    <ScrollView flex={1}>
+      <VStack flex={1} alignItems="center" p={5}>
+        <Titulo color="blue.500">Meu Perfil</Titulo>
 
-                <Titulo color="blue.500">Informações Pessoais</Titulo>
-                <Titulo fontSize="lg">Arthur Larangeiras Maurício da Rocha</Titulo>
-                <Titulo>05/03/2004</Titulo>
-                <Titulo>Votuporanga / SP</Titulo>
+        <Avatar size="xl" source={{ uri: "https://github.com/robertoSRMJunior.png" }} mt={5} />
 
-                <Divider mt={5} />
+        <Titulo color="blue.500">Informações pessoais</Titulo>
+        <Titulo fontSize="lg" mb={1}>Roberto Moraes</Titulo>
+        <Text>01/04/1988</Text>
+        <Text>São Paulo</Text>
 
-                <Titulo color="blue.500">Histórico Médico</Titulo>
-                <Text fontSize={18}>Bronquite</Text>
-                <Text fontSize={18}>Sinusite</Text>
-            </VStack>
-        </ScrollView>
-    );
+        <Divider mt={5} />
+
+        <Titulo color="blue.500" mb={1}>Histórico médico</Titulo>
+        <Text>Bronquite</Text>
+        <Text>Sinusite</Text>
+      </VStack>
+    </ScrollView>
+  )
 }
