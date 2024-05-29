@@ -27,7 +27,7 @@ export default function Perfil({navigation}: any) {
   const deslogar = async () => {
     await AsyncStorage.removeItem('token');
     await AsyncStorage.removeItem('pacienteId');
-    navigation.replace('Login'); // Redirecionar para a tela de login
+    navigation.replace('Login');  
   };
 
   return (
@@ -35,7 +35,7 @@ export default function Perfil({navigation}: any) {
       <VStack flex={1} alignItems="center" p={5}>
         <Titulo color="blue.500">Meu Perfil</Titulo>
 
-        <Avatar size="xl" source={{ uri: dadosPaciente.imagem }} mt={5} />
+        <Avatar size="xl" source={{ uri: dadosPaciente?.imagem }} mt={5} />
 
         <Titulo color="blue.500">Informações pessoais</Titulo>
         <Titulo fontSize="lg" mb={1}>{dadosPaciente.nome}</Titulo>
@@ -46,7 +46,7 @@ export default function Perfil({navigation}: any) {
 
         <Titulo color="blue.500" mb={1}>Planos de Saúde</Titulo>
         {
-          dadosPaciente.planosSaude && dadosPaciente.planosSaude.map((plano, index) => (
+          dadosPaciente.planosSaude && dadosPaciente?.planosSaude?.map((plano, index) => (
             <Text key={index}>{plano}</Text>
           ))
         }
