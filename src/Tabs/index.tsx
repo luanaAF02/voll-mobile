@@ -36,7 +36,7 @@ const tabs = [
     name: 'Perfil',
     component: Perfil,
     icon: 'person'
-  },
+  }
 ]
 
 export default function Tabs() {

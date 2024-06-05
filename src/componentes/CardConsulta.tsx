@@ -13,15 +13,15 @@ interface CardProps {
 
 export function CardConsulta({
   nome,
-  foto, 
+  foto,
   data,
   especialidade,
   foiAgendado,
   foiAtendido,
   onPress
-}: CardProps){
-  return(
-    <VStack w="100%" bg={foiAtendido ? 'blue.100': 'white'} p="5" borderRadius="lg" shadow="2" mb={5}>
+}: CardProps) {
+  return (
+    <VStack w="100%" bg={foiAtendido ? 'blue.100' : 'white'} p="5" borderRadius="lg" shadow="2" mb={5}>
       <VStack flexDir="row">
         <Avatar size="lg" source={{ uri: foto }} />
         <VStack pl="4">
