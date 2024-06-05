@@ -10,29 +10,34 @@ export default function Agendamento({ route, navigation }: any) {
     const toast = useToast();
 
     async function agendar() {
-        const pacieteId = await AsyncStorage.getItem('pacienteId');
-        const { especialistaId } = route.params
-        if (!pacieteId || !especialistaId || !data) return
+        const pacienteId = await AsyncStorage.getItem('pacienteId');
+        const { especialistaId } = route.params;
+        if (!pacienteId || !especialistaId || !data) return;
         const dataFormatada = converterStringParaData(data);
-        const resultado = await agendarConsulta(dataFormatada, especialistaId, pacieteId)
+        const resultado = await agendarConsulta(dataFormatada, especialistaId, pacienteId);
         if (resultado) {
             toast.show({
                 title: 'Consulta agendada com sucesso!',
                 backgroundColor: 'green.500'
-            })
+            });
             return navigation.goBack();
         }
         toast.show({
             title: 'Erro ao agendar consulta',
             description: 'Horário indisponível',
             backgroundColor: 'red.500'
-        })
+        });
+    }
+
+    function voltar() {
+        navigation.goBack();
     }
 
     return (
         <VStack flex={1} alignItems="center" justifyContent="center" padding={5}>
             <Input placeholder="Digite a data 10/05/2024 12:23" onChangeText={setData} />
             <Botao onPress={agendar}>Agendar</Botao>
+            <Botao onPress={voltar}>Voltar</Botao>
         </VStack>
-    )
+    );
 }
